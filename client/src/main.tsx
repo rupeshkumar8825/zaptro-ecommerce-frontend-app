@@ -5,6 +5,6 @@ import "./index.css" // importing this is very important in order to use the tai
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+      <App />
   </StrictMode>,
 )
