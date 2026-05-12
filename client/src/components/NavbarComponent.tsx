@@ -3,14 +3,27 @@ import { FaCaretDown } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom"
 
 export const NavbarComponent = () => {
-
     const location = false;
-    const routeLocation = useLocation();
 
-    const isHome = routeLocation.pathname == "/";
-    const isProducts = routeLocation.pathname == "/products";
-    const isAbout = routeLocation.pathname == "/about";
-    const isContact = routeLocation.pathname == "/contact";
+    const addUnderLineStyling = (clickedMenuItem : string) => {
+        const routeLocation = useLocation();
+        // check this routelocation matches with whom 
+        if((routeLocation.pathname == "/" && clickedMenuItem == "home")
+            || (routeLocation.pathname == "/products" && clickedMenuItem == "products")
+            || (routeLocation.pathname == "/about" && clickedMenuItem == "about")
+            || (routeLocation.pathname == "/contact" && clickedMenuItem == "contact"))
+        {
+            // then the user has selected the home path hence we need to
+            // return the correct styling for this case 
+            return 'px-3 py-2 border-b-2  border-red-500 text-red-600'
+        }else {
+            // this means that the mismatch happened hence we need to not return 
+            // anything and do no need to show any of the underline below this 
+            // menuitem for this purpose. 
+            return 'px-3 py-2 border-b-2 border-transparent text-gray-800'
+        }
+    }
+
     return (
         <div className="bg-white py-3 shadow-2xl border border-red-300">
             <div className="max-w-6xl mx-auto flex justify-around items-center border border-yellow-400">
@@ -33,10 +46,10 @@ export const NavbarComponent = () => {
                 <nav className="flex flex-col justify-around items-center border border-orange-700">
                     {/* lets add the list of the links here for navigating to other pages */}
                     <ul className="flex flex-row gap-7 font-bold justify-around items-center border border-pink-400">
-                        <NavLink to={"/"}><li className="border border-gray-500">Home</li></NavLink>
-                        <NavLink to={"/products"}><li className="border border-gray-500">Products</li></NavLink>
-                        <NavLink to={"/about"}><li className="border border-gray-500">About</li></NavLink>
-                        <NavLink to={"/contact"}><li className="border border-gray-500">Contact</li></NavLink>
+                        <NavLink to={"/"}><li className={addUnderLineStyling("home")}>Home</li></NavLink>
+                        <NavLink to={"/products"}><li className={addUnderLineStyling("products")}>Products</li></NavLink>
+                        <NavLink to={"/about"}><li className={addUnderLineStyling("about")}>About</li></NavLink>
+                        <NavLink to={"/contact"}><li className={addUnderLineStyling("contact")}>Contact</li></NavLink>
                     </ul>
                 </nav>
             </div>
