@@ -1,5 +1,6 @@
 import { Divide, MapPin } from "lucide-react"
 import { FaCaretDown } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom"
 
 export const NavbarComponent = () => {
@@ -52,6 +53,15 @@ export const NavbarComponent = () => {
                         <NavLink to={"/contact"}><li className={addUnderLineStyling("contact")}>Contact</li></NavLink>
                     </ul>
                 </nav>
+                
+                {/* the cart of the application comes here */}
+                <Link to={"/cart"} className="relative">
+                    <IoCartOutline className=" h-7 w-7 ">
+                    </IoCartOutline>
+                    <span className="bg-red-500 px-2 rounded-full absolute -top-3 -right-3 text-white">0</span>
+                </Link>
+                {/* the signin button of the app  comes here */}
+                <button className="px-3 py-2 border border-white bg-red-500 text-white rounded-lg ">SignIn</button>
             </div>
         </div>
     ) 
