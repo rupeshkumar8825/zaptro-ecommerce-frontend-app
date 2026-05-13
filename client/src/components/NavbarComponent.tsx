@@ -3,14 +3,71 @@ import { Divide, MapPin } from "lucide-react"
 import { FaCaretDown } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom"
-import type { INavbarComponentProps } from "../types/appTypes";
+import type { AddressInformation, INavbarComponentProps } from "../types/appTypes";
 import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 
-export const NavbarComponent = (props : INavbarComponentProps) => {
+export const NavbarComponent = () => {
 
     // use states of the navbar component comes here 
     const [showOptionToDetectLocation, setShowOptionToDetectLocation] = useState<boolean>(false);
+
+
+    // states of the application comes here 
+    const [location, setLocation] = useState<AddressInformation | null>(null);
+
+
+
+    const getUserLocationOnSuccessCallback : PositionCallback = async (position) => {
+    console.log("The value of the position object that we got is as folllows\n", position);
+            console.log("The coordinates object is as follows \n", position.coords);
+            // lets get the value of the latitude and longitude for this purpose 
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            console.log("the value of the latitude and longitude is as follows \n", latitude, longitude);
+            
+            const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+            
+            try{
+                // lets make an request to fetch the details about the address of the user 
+                const apiResponse = await axios.get(url)
+                const exactLocation = apiResponse.data.address;
+                const addressData : AddressInformation = {
+                county : exactLocation.county, 
+                city : exactLocation.city, 
+                suburb : exactLocation.suburb
+                }
+                console.log("The exact location that we fetched is as follows \n", exactLocation);
+                // lets set this in the location use state variable for this purpose 
+                setLocation(addressData);
+
+            }catch (error : any){
+                console.log("some exception occurred while fetching the user's exact location with message", error.message)
+                // some error occurred then lets make it empty 
+                setLocation(null);
+            }
+            // say everything went fine for this purpose
+            return;
+    }
+
+    const getUserLocationOnFailureCallback : PositionErrorCallback = (error) => {
+    console.log("Some error occurred while trying to fetch the details of the location");
+    console.log("the error details are as  follows \n", error.code, error.message);
+    }
+
+
+    /**
+     * Function finds the location of the user using the inbuild geolocation
+     * feature of the javascript. Also this function makes an api call to fetch 
+     * the values of the address given the latitudes and longitudes for this purpose
+     * @returns nothing. Just updates some variables here for this purpose 
+     */
+    const getUserLocation = () => {
+        // lets try to make an api call to get the navigation of the user for this purpose
+        navigator.geolocation.getCurrentPosition(getUserLocationOnSuccessCallback, getUserLocationOnFailureCallback);
+    }
+
 
 
     const addUnderLineStyling = (clickedMenuItem : string) => {
@@ -27,6 +84,12 @@ export const NavbarComponent = (props : INavbarComponentProps) => {
         }
     }
 
+    const detectLocationButtonClickHandler = () => {
+        console.log("This means that the user wants us to explicitly again detect the location");
+
+        // lets call this function here as well for this purpose
+        getUserLocation();
+    }
     const closeOptionToDetectLocationHandler = () => {
         setShowOptionToDetectLocation(false)
     }
@@ -40,6 +103,10 @@ export const NavbarComponent = (props : INavbarComponentProps) => {
     // simple use effect hook for the navbar component for this purpose 
     useEffect(() => {
         console.log("Navbar component rendered for the first time");
+        // whenever the navbar component will be loaded then for the first time we 
+        // try to fetch the location of the user 
+        // lets call this function 
+        getUserLocation();
         return () => {
             console.log("Nothing to clear anything when the useeffect finish executing")      
         };
@@ -56,9 +123,9 @@ export const NavbarComponent = (props : INavbarComponentProps) => {
                     {/* location related code comes here */}
                     <div className="flex justify-between items-center">
                         <MapPin className="text-red-500"></MapPin>
-                        <span className="font-semibold">{props.location ? <div>
-                            <p>{props.location.county}</p>
-                            <p>{props.location.city}, {props.location.suburb}</p>
+                        <span className="font-semibold">{location ? <div>
+                            <p>{location.county}</p>
+                            <p>{location.city}, {location.suburb}</p>
                         </div> : "Add Address"}</span>
                         {/* now lets define the icon for the caret to be able to select the location for this purpose */}
                         <FaCaretDown className="cursor-pointer" onClick={showOptionToDetectLocationHandler}></FaCaretDown>
@@ -71,7 +138,7 @@ export const NavbarComponent = (props : INavbarComponentProps) => {
                                 <h1 className="text-xl mb-5 ml-5 mt-5">Change Location</h1>
                                 <CgClose className="h-6 w-6 cursor-pointer" onClick={closeOptionToDetectLocationHandler}></CgClose>
                             </div>
-                            <button className=" text-white bg-red-500 px-2 py-2 rounded-md mb-5"> Detect Location</button>
+                            <button className=" text-white bg-red-500 px-2 py-2 rounded-md mb-5" onClick={detectLocationButtonClickHandler}> Detect Location</button>
                         </div> : null
                     }
                 </div>
