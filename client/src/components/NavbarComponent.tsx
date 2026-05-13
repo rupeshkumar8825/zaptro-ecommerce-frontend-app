@@ -1,10 +1,11 @@
+import axios from "axios";
 import { Divide, MapPin } from "lucide-react"
 import { FaCaretDown } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom"
+import type { INavbarComponentProps } from "../types/appTypes";
 
-export const NavbarComponent = () => {
-    const location = false;
+export const NavbarComponent = (props : INavbarComponentProps) => {
 
     const addUnderLineStyling = (clickedMenuItem : string) => {
         const routeLocation = useLocation();
@@ -25,6 +26,8 @@ export const NavbarComponent = () => {
         }
     }
 
+
+    // code for the JSX element here related to GUI.
     return (
         <div className="bg-white py-3 shadow-2xl border border-red-300">
             <div className="max-w-6xl mx-auto flex justify-around items-center border border-yellow-400">
@@ -35,8 +38,10 @@ export const NavbarComponent = () => {
                     {/* location related code comes here */}
                     <div className=" border border-black-400 flex justify-between items-center">
                         <MapPin className="text-red-500"></MapPin>
-                        <span className="font-semibold">{location ? <div>
-                            Lalapur kudra kaimur
+                        <span className="font-semibold">{props.location ? <div>
+                            <p>{props.location.county}</p>
+                            <p>{props.location.city}</p>
+                            <p>{props.location.suburb}</p>
                         </div> : "Add Address"}</span>
                         {/* now lets define the icon for the caret to be able to select the location for this purpose */}
                         <FaCaretDown></FaCaretDown>
