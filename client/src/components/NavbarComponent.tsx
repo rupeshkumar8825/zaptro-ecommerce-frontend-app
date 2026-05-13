@@ -3,7 +3,7 @@ import { Divide, MapPin } from "lucide-react"
 import { FaCaretDown } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom"
-import type { AddressInformation, INavbarComponentProps } from "../types/appTypes";
+import type { AddressInformation } from "../types/appTypes";
 import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 
@@ -41,6 +41,10 @@ export const NavbarComponent = () => {
                 console.log("The exact location that we fetched is as follows \n", exactLocation);
                 // lets set this in the location use state variable for this purpose 
                 setLocation(addressData);
+                
+                // control reaches here this means that we were able to successfully find the location 
+                // of the user. hence lets close the dropdown for this purpose
+                setShowOptionToDetectLocation(false)
 
             }catch (error : any){
                 console.log("some exception occurred while fetching the user's exact location with message", error.message)
@@ -52,8 +56,8 @@ export const NavbarComponent = () => {
     }
 
     const getUserLocationOnFailureCallback : PositionErrorCallback = (error) => {
-    console.log("Some error occurred while trying to fetch the details of the location");
-    console.log("the error details are as  follows \n", error.code, error.message);
+        console.log("Some error occurred while trying to fetch the details of the location");
+        console.log("the error details are as  follows \n", error.code, error.message);
     }
 
 
@@ -138,7 +142,7 @@ export const NavbarComponent = () => {
                                 <h1 className="text-xl mb-5 ml-5 mt-5">Change Location</h1>
                                 <CgClose className="h-6 w-6 cursor-pointer" onClick={closeOptionToDetectLocationHandler}></CgClose>
                             </div>
-                            <button className=" text-white bg-red-500 px-2 py-2 rounded-md mb-5" onClick={detectLocationButtonClickHandler}> Detect Location</button>
+                            <button className=" text-white bg-red-500 px-2 py-2 rounded-md mb-5 cursor-pointer" onClick={detectLocationButtonClickHandler}> Detect Location</button>
                         </div> : null
                     }
                 </div>

@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import "./index.css" // importing this is very important in order to use the tailwind css
+import { RecoilRoot } from 'recoil'
 
 // TODO : NEED TO INTEGRATE THE CLERK TO BE ABLE TO LOGIN USING THE CLERK WITHOUT USING. 
 // ACTUAL BACKEND. SINCE THIS IS AN FRONTEND APPLICATION HENCE THIS IS THE IDEAL AND FASTER
@@ -9,6 +10,8 @@ import "./index.css" // importing this is very important in order to use the tai
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <RecoilRoot>
       <App />
+    </RecoilRoot>
   </StrictMode>,
 )

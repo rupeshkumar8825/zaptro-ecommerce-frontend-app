@@ -5,9 +5,7 @@ import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
 import { AddToCartPage } from './pages/AddToCartPage'
 import { NavbarComponent } from "./components/NavbarComponent"
-import axios from "axios"
-import { useEffect, useState } from "react"
-import type { AddressInformation } from "./types/appTypes"
+import { useEffect } from "react"
 
 
 function App() {
