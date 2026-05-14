@@ -5,3 +5,14 @@ export type AddressInformation = {
     city : string, 
     suburb : string 
 }   
+
+
+export type ProductDetail = {
+    id : string, 
+    title : string,
+    description : string, 
+    image : string, 
+    category : string, 
+    price : number, 
+    rating : number
+}
