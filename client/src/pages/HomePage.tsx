@@ -2,38 +2,48 @@ import React, { useEffect, useState } from "react";
 import { CaraouselComponent } from "../components/CaraouselComponent";
 import axios from "axios";
 import type { ProductDetail } from "../types/appTypes";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getAllProductSelectors } from "../state/productSelectors";
 import { allProductListAtom } from "../state/productAtoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 export const HomePage = () => {
 
+    // application states to use comes here 
+    const setAllProductList = useSetRecoilState(allProductListAtom);
+    const allProductList : ProductDetail[] = useRecoilValue(getAllProductSelectors);
 
-    // lets use the recoil itself 
-    const allProductList : ProductDetail[] = useRecoilValue(getAllProductSelectors)
-    const setProductList = useSetRecoilState(allProductListAtom);
+
+
+    // components use statews to be used comes here 
     
+
+
+    // const allProductList = useRecoilValue(allProductListAtom)
+    // console.log("the value of the allProductlist from selector is as follows\n", allProductList)
+    // const allproduc
     const fetchDemoProducts = async () => {
         const getResponse = await axios.get("https://fakestoreapi.com/products")
         console.log("the response of the fake api call is as follows \n", getResponse);
-        const productListData : ProductDetail[] = getResponse.data;
+        const productListData = getResponse.data;
         if(!productListData || productListData.length == 0){
             // this means that there is no data at all
             console.log("Failed to fetch the list of products");
             // lets set the state variable for this purpose
-            setProductList([]);
+            setAllProductList([]);
             // say everything went fine 
             return;            
         }
 
-        // else set the relevant state to store the value of the product list 
-        // may be here we will be using the selectors for this purpose
+        // this means that we have got the some list of products 
+        // set this into the atom itself and may be the selector will update its value automatically 
+        setAllProductList(productListData)
 
     }
 
     // lets fetch the list of demo ecommerce products for our frontend project 
     // for this purpose
     useEffect(() => {
+        console.log("Home page rendered for the first time");
         // we will fetch the list of demo product when the home page renders for the first time 
         fetchDemoProducts()
     }, [])
@@ -59,7 +69,7 @@ export const HomePage = () => {
     // otherwise lets show the list of the products for this purpose
     return (
         <div>
-            
+
             <CaraouselComponent></CaraouselComponent>
         </div>
     )
