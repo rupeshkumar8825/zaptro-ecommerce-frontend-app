@@ -26,7 +26,7 @@ export const getSelectedProductDetails = selector<ProductDetail | null>({
  * Selector to return the list of products that we need to show on the 
  * home page caraousel component for this purpose 
  */
-export const getHomePageCaraouselProducts = selector<ProductDetail[]>({
+export const getHomePageCaraouselProductsSelector = selector<ProductDetail[]>({
     key : "getHomePageCaraouselProducts", 
     get : ({ get }) => {
         const allProductList = get(allProductListAtom);
