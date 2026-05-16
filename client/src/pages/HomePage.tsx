@@ -68,7 +68,7 @@ export const HomePage = () => {
 
     // otherwise lets show the list of the products for this purpose
     return (
-        <div className="border border-yellow-500">
+        <div className="">
             <CaraouselComponent></CaraouselComponent> 
         </div>
     )
