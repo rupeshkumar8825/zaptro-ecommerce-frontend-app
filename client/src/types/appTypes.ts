@@ -20,6 +20,6 @@ export type ProductDetail = {
 
 export type CaraouselComponentProps = {
     autoPlay : boolean, 
-    hoverStop : boolean, 
+    pauseOnHover : boolean, 
     autoPlayDuration : number
 }

@@ -14,6 +14,7 @@ export const CaraouselComponent = (props : CaraouselComponentProps) => {
 
     // states of the application comes here 
     const [currentSliderIndex, setCurrentSliderIndex] = useState<number>(0);
+    const [isHover, setIsHover] = useState<boolean>(false);
 
 
     const previousSlideClickHandler = () => {
@@ -43,6 +44,10 @@ export const CaraouselComponent = (props : CaraouselComponentProps) => {
         if(props.autoPlay){
             // then lets define the setinterval for this purpose 
             const setIntervalInstance = setInterval(() => {
+                if(props.pauseOnHover && isHover){
+                    // we will simply return from here 
+                    return;
+                }
                 nextSlideClickHandler()
             }, props.autoPlayDuration);
 
@@ -53,7 +58,7 @@ export const CaraouselComponent = (props : CaraouselComponentProps) => {
             }
         }
 
-    }, [props.autoPlay, props.autoPlayDuration])
+    }, [props.autoPlay, props.autoPlayDuration, isHover])
 
     // lets also implement the autoplay feature in this for this purpose
 
@@ -61,7 +66,7 @@ export const CaraouselComponent = (props : CaraouselComponentProps) => {
         <div className="overflow-hidden relative">
             <div className="flex relative transition-transform ease-out duration-500" style={{transform : `translateX(-${currentSliderIndex * 100}%)`}}>
                 {caraouselProductList.map((currProductDetail, index) => (
-                    <div key={index} className="min-w-full shrink-0 flex flex-row justify-around items-center py-5 bg-linear-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]">
+                    <div key={index} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} onFocus={() => setIsHover(true)} onBlur={() => setIsHover(false)} className="min-w-full shrink-0 flex flex-row justify-around items-center py-5 bg-linear-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]">
                         <div >
                             <h1 className="text-xl text-red-500 font-semibold font-sans text-left">Powering Your World with the Best in {currProductDetail.category} </h1>
                             <p className="text-4xl font-bold uppercase line-clamp-3 md:w-125 text-white">{currProductDetail.title} </p>

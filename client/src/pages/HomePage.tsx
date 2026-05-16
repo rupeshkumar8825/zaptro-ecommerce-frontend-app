@@ -69,7 +69,7 @@ export const HomePage = () => {
     // otherwise lets show the list of the products for this purpose
     return (
         <div className="">
-            <CaraouselComponent autoPlay={true} hoverStop={true} autoPlayDuration={3000}></CaraouselComponent> 
+            <CaraouselComponent autoPlay={true} pauseOnHover={true} autoPlayDuration={3000}></CaraouselComponent> 
         </div>
     )
 }
