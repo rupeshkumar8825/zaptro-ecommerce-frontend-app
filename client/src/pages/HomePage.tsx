@@ -6,6 +6,8 @@ import { getAllProductSelectors } from "../state/productSelectors";
 import { allProductListAtom } from "../state/productAtoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { CatetgoryComponent } from "../components/CategoryComponent";
+import { ServicesComponent } from "../components/ServicesComponent";
+import { FooterComponent } from "../components/FooterComponent";
 
 export const HomePage = () => {
 
@@ -72,6 +74,8 @@ export const HomePage = () => {
         <div className="">
             <CaraouselComponent autoPlay={true} pauseOnHover={true} autoPlayDuration={3000}></CaraouselComponent> 
             <CatetgoryComponent></CatetgoryComponent>
+            <ServicesComponent></ServicesComponent>
+            <FooterComponent></FooterComponent>
         </div>
     )
 }
