@@ -32,3 +32,10 @@ export type SingleServiceComponentProps = {
     serviceHeadingName : string,
     serviceDescriptionName : string
 }
+
+
+export type ProductCardComponentProps = {
+    image : string, 
+    title : string,
+    price : number
+}

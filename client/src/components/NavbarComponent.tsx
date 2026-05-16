@@ -118,7 +118,7 @@ export const NavbarComponent = () => {
 
 
     return (
-        <div className=" border border-black bg-white py-5 shadow-2xl">
+        <div className=" border border-black bg-white py-2 shadow-2xl">
             <div className=" flex justify-around items-center ">
                 {/* logo section of the navbar comes here */}
                 <div className="flex flex-row gap-5 items-center  relative">
