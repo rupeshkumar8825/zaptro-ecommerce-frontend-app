@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { CatetgoryComponent } from "../components/CategoryComponent";
 import { ServicesComponent } from "../components/ServicesComponent";
 import { FooterComponent } from "../components/FooterComponent";
+import { MiddleBannerComponent } from "../components/MiddleBannerComponent";
 
 export const HomePage = () => {
 
@@ -74,6 +75,7 @@ export const HomePage = () => {
         <div className="">
             <CaraouselComponent autoPlay={true} pauseOnHover={true} autoPlayDuration={3000}></CaraouselComponent> 
             <CatetgoryComponent></CatetgoryComponent>
+            <MiddleBannerComponent></MiddleBannerComponent>
             <ServicesComponent></ServicesComponent>
             <FooterComponent></FooterComponent>
         </div>
