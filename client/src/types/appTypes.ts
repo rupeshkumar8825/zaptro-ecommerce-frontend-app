@@ -16,3 +16,10 @@ export type ProductDetail = {
     price : number, 
     rating : number
 }
+
+
+export type CaraouselComponentProps = {
+    autoPlay : boolean, 
+    hoverStop : boolean, 
+    autoPlayDuration : number
+}

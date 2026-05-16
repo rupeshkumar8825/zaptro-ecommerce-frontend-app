@@ -2,12 +2,12 @@
 // this component will be used across all the application for this purpose
 
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs"
-import type { ProductDetail } from "../types/appTypes"
+import type { CaraouselComponentProps, ProductDetail } from "../types/appTypes"
 import { useRecoilValue } from "recoil"
 import { getHomePageCaraouselProductsSelector } from "../state/productSelectors"
 import { useEffect, useState } from "react"
 
-export const CaraouselComponent = () => {
+export const CaraouselComponent = (props : CaraouselComponentProps) => {
 
     // lets get the list of products to be shown on the caraousel component from the recoil selector itself 
     const caraouselProductList : ProductDetail[] = useRecoilValue(getHomePageCaraouselProductsSelector)
@@ -21,8 +21,8 @@ export const CaraouselComponent = () => {
         console.log("the user is trying to go to the previous slide")
         // const currentSlide = currentSliderIndex;
         console.log("the value of the caraouel component is : ", currentSliderIndex)
-        setCurrentSliderIndex((currentSliderIndex - 1 + caraouselProductList.length) % caraouselProductList.length);
-        // setCurrentSliderIndex((prev) => prev === 0 ? caraouselProductList.length -1 : prev - 1);
+        // setCurrentSliderIndex((currentSliderIndex - 1 + caraouselProductList.length) % caraouselProductList.length);
+        setCurrentSliderIndex((prev) => prev === 0 ? caraouselProductList.length -1 : prev - 1);
 
         console.log("the after value of the caraouel component is : ", currentSliderIndex)
 
@@ -31,8 +31,8 @@ export const CaraouselComponent = () => {
         console.log("user is trying to go to the next slide for this purpose")
         // const currentSlide = currentSliderIndex;
         console.log("the value of the caraouel component is : ", currentSliderIndex)
-        setCurrentSliderIndex((currentSliderIndex + 1) % caraouselProductList.length);
-        // setCurrentSliderIndex((prev) => prev === caraouselProductList.length - 1? 0 : prev + 1);
+        // setCurrentSliderIndex(currentSliderIndex===caraouselProductList.length-1? 0 : currentSliderIndex + 1);
+        setCurrentSliderIndex((prev) => prev === caraouselProductList.length - 1? 0 : prev + 1);
         console.log("the after value of the caraouel component is : ", currentSliderIndex)
 
     }
@@ -40,7 +40,20 @@ export const CaraouselComponent = () => {
     useEffect(() => {
         // we can implement the autoplay feature using the setinterval timer itself for this purpose
         console.log("inside the useeffect hook of the caraousel component")
-    }, [])
+        if(props.autoPlay){
+            // then lets define the setinterval for this purpose 
+            const setIntervalInstance = setInterval(() => {
+                nextSlideClickHandler()
+            }, props.autoPlayDuration);
+
+            return () => {
+                // lets clear the setinterval that we have created 
+                // so that we can avoid the memory overflow or stack overflow 
+                clearInterval(setIntervalInstance)
+            }
+        }
+
+    }, [props.autoPlay, props.autoPlayDuration])
 
     // lets also implement the autoplay feature in this for this purpose
 
