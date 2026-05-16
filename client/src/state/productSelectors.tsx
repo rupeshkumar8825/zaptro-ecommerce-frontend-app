@@ -35,3 +35,23 @@ export const getHomePageCaraouselProductsSelector = selector<ProductDetail[]>({
         return homePageCaraouselProductList
     }
 });
+
+
+
+/**
+ * Given the list of the products response this selector will filter out 
+ * the category list
+ */
+export const getListOfAllUniqueCategoriesSelector = selector<string[]>({
+    key : "getListOfAllUniqueCategoriesSelector", 
+    get : ({ get }) => {
+        // we need to fetch the list of all the categories 
+        let categoryList = get(allProductListAtom).map((currItem) => {
+            return currItem["category"]
+        });
+        // need to only return the unique categories itself 
+        categoryList = [...new Set(categoryList)];
+        // say everything went fine 
+        return categoryList;
+    }
+})

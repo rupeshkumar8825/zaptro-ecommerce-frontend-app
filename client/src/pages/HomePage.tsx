@@ -5,6 +5,7 @@ import type { ProductDetail } from "../types/appTypes";
 import { getAllProductSelectors } from "../state/productSelectors";
 import { allProductListAtom } from "../state/productAtoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { CatetgoryComponent } from "../components/CategoryComponent";
 
 export const HomePage = () => {
 
@@ -70,6 +71,7 @@ export const HomePage = () => {
     return (
         <div className="">
             <CaraouselComponent autoPlay={true} pauseOnHover={true} autoPlayDuration={3000}></CaraouselComponent> 
+            <CatetgoryComponent></CatetgoryComponent>
         </div>
     )
 }
