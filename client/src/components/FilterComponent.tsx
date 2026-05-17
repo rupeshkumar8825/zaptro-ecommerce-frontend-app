@@ -11,13 +11,13 @@ export const FilterComponent = (props: FilterComponentProps) => {
     return (
         <div>
             {/* product filter section comes here */}
-            <div className="col-span-1 px-5">
-                <div className="px-5 py-5 shadow-2xl rounded-lg">
-                    <input type="text" className="border border-gray-300 w-full px-2 py-2  rounded-lg accent-red-500" placeholder="Search" onChange={props.handleSearchKeyWordChange}/>
+            <div className="col-span-1 px-5 shadow-2xl rounded-lg">
+                <div className="px-5 py-5 rounded-lg">
+                    <input type="text" className="border border-gray-300 w-full px-2 py-2  rounded-lg accent-red-500" placeholder="Search" value={props.searchKeyWord} onChange={props.handleSearchKeyWordChange}/>
                 </div>
 
                 {/* list of categories comes here */}
-                <div className="mt-5 shadow-2xl rounded-md px-5 py-5">
+                <div className="mt-5  rounded-md px-5 py-5">
                     <h1 className="font-semibold">Category</h1>
                     {
                         props.categoryList.map((currCategoryItem : string, index : number) => (
@@ -38,10 +38,14 @@ export const FilterComponent = (props: FilterComponentProps) => {
                 </div> */}
 
                 {/* price range options comes here  */}
-                <div className="flex flex-col justify-center items-left shadow-2xl rounded-md px-5 py-5 mt-10">
+                <div className="flex flex-col justify-center items-left  rounded-md px-5 py-5 mt-10">
                     <h1 className="font-semibold">Price Range</h1>
                     <p>Price Range $0 - $5000</p>
                     <input type="range" className="accent-red-500" min={MIN_PRICE_RANGE} max={MAX_PRICE_RANGE} value={props.currPriceRange} onChange={props.handlePriceChange}/>
+                </div>
+
+                <div className="px-5 py-5">
+                    <button className="text-white bg-red-500 px-3 py-2 rounded-sm cursor-pointer" onClick={props.handleResetFilter}>Reset Filter</button>
                 </div>
 
             </div>

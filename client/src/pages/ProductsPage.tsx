@@ -6,6 +6,7 @@ import { IoCartOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { FilterComponent } from "../components/FilterComponent";
 import { ProductCardComponent } from "../components/ProductCardComponent";
+import { PRODUCT_MAX_PRICE } from "../constants/appConstants";
 
 export const ProductsPage = () => {
     // all the recoil related variable comes here 
@@ -37,7 +38,20 @@ export const ProductsPage = () => {
     const handleSearchKeyWordChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setSearchKeyWord(e.target.value)
     }
+
+    const handleResetFilter = () => {
+        /**
+         * Actions to take : 
+         *      1. Make the search text to empty value
+         *      2. Select "ALL" categories 
+         *      3. Set the price to MAX_PRICE_RANGE
+         */
+        setSearchKeyWord("");
+        setCurrPriceRange(PRODUCT_MAX_PRICE)
+        setCurrCategoryCheckList(resetCategorySelection)
+    }
     
+
     const getFilteredProducts = () => {
         // check if the "ALL" is selected. if it is selected then we need 
         // do the following : 
@@ -68,16 +82,9 @@ export const ProductsPage = () => {
         
     }
         
-
-    
-    
-    // all the application hooks comes here 
-    useEffect(() => {
-        // this page has rendered freshly lets try to first set 
-        // category selection to its initial state
-        // it always be "ALL"
-        // and we have reserved the first element of the array as "ALL"
+    const resetCategorySelection = () => {
         let categorySelection : boolean[] = [];
+
         allCategoryList.forEach(element => {
             if(element === "ALL"){
                 categorySelection.push(true)
@@ -86,6 +93,18 @@ export const ProductsPage = () => {
             }
         });
 
+        // say everything went fine 
+        return categorySelection;
+    }
+    
+    
+    // all the application hooks comes here 
+    useEffect(() => {
+        // this page has rendered freshly lets try to first set 
+        // category selection to its initial state
+        // it always be "ALL"
+        // and we have reserved the first element of the array as "ALL"
+        let categorySelection = resetCategorySelection()
         setCurrCategoryCheckList(categorySelection)
     }, [])
 
@@ -102,7 +121,7 @@ export const ProductsPage = () => {
         <div>
             <div className="grid grid-cols-4">
                 
-                <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} ></FilterComponent>
+                <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} searchKeyWord={searchKeyWord} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} handleResetFilter={handleResetFilter} ></FilterComponent>
                 {/* Product listing section comes here */}
                 <div className="col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
                     {
