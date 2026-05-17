@@ -100,11 +100,11 @@ export const ProductsPage = () => {
     // all the UI related JSX codes comes here for this purpose
     return (
         <div>
-            <div className="border-2 border-black grid grid-cols-4">
+            <div className="grid grid-cols-4">
                 
                 <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} ></FilterComponent>
                 {/* Product listing section comes here */}
-                <div className="border-2 border-black col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
+                <div className="col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
                     {
                         filteredList.map((currProduct : ProductDetail, index : number) => (
                             <ProductCardComponent key={index} image={currProduct.image} title={currProduct.title} price={currProduct.price}></ProductCardComponent>
