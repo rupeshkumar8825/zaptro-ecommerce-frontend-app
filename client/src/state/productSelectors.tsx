@@ -50,7 +50,7 @@ export const getListOfAllUniqueCategoriesSelector = selector<string[]>({
             return currItem["category"]
         });
         // need to only return the unique categories itself 
-        categoryList = [...new Set(categoryList)];
+        categoryList = ["ALL", ...new Set(categoryList)];
         // say everything went fine 
         return categoryList;
     }

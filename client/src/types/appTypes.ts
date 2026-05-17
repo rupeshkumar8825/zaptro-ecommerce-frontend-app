@@ -39,3 +39,13 @@ export type ProductCardComponentProps = {
     title : string,
     price : number
 }
+
+
+export type FilterComponentProps = {
+    categoryList : string[], 
+    currPriceRange : number, 
+    categorySelectionCheckList : boolean[], 
+    handleCategorySelectionChange : (index : number) => void;
+    handlePriceChange : (e : React.ChangeEvent<HTMLInputElement>) => void;
+    handleSearchKeyWordChange : (e : React.ChangeEvent<HTMLInputElement>) => void;
+}
