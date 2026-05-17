@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { FilterComponent } from "../components/FilterComponent";
 import { ProductCardComponent } from "../components/ProductCardComponent";
 import { PRODUCT_MAX_PRICE } from "../constants/appConstants";
+import { PaginationComponent } from "../components/PaginationComponent";
 
 export const ProductsPage = () => {
     // all the recoil related variable comes here 
@@ -121,15 +122,18 @@ export const ProductsPage = () => {
         <div>
             <div className="grid grid-cols-4">
                 
-                <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} searchKeyWord={searchKeyWord} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} handleResetFilter={handleResetFilter} ></FilterComponent>
+                <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} searchKeyWord={searchKeyWord} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} handleResetFilter={handleResetFilter}></FilterComponent>
                 {/* Product listing section comes here */}
                 <div className="col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
                     {
-                        filteredList.map((currProduct : ProductDetail, index : number) => (
+                        filteredList.slice(0, 8).map((currProduct : ProductDetail, index : number) => (
                             <ProductCardComponent key={index} image={currProduct.image} title={currProduct.title} price={currProduct.price}></ProductCardComponent>
                         ))
                     }
+
                 </div>
+                <PaginationComponent></PaginationComponent>
+
             </div>
 
             <FooterComponent></FooterComponent>
