@@ -122,6 +122,7 @@ export const ProductsPage = () => {
         setFilteredList(allProductList);
         setTotalPages(Math.floor(filteredList.length/8) + 1)
         setCurrPageNumber(1);
+        window.scrollTo(0, 0);
     }, [])
 
     // now whenever the user selection on the price, category selection 
