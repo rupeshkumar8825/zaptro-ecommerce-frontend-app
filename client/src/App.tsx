@@ -6,6 +6,7 @@ import { ContactPage } from './pages/ContactPage'
 import { AddToCartPage } from './pages/AddToCartPage'
 import { NavbarComponent } from "./components/NavbarComponent"
 import { useEffect } from "react"
+import { SingleProductDetailPage } from "./pages/SingleProductDetailPage"
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path='/about' element={<AboutPage/>}/>
           <Route path='/contact' element={<ContactPage/>}/>
           <Route path='/cart' element={<AddToCartPage/>}/>
+          <Route path="/products/:id" element={<SingleProductDetailPage/>} />
         </Routes>
       </BrowserRouter>
     

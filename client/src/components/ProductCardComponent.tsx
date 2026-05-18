@@ -1,10 +1,16 @@
 import { IoCartOutline } from "react-icons/io5"
 import type { ProductCardComponentProps } from "../types/appTypes"
+import { useNavigate } from "react-router-dom"
 
 // component to layout the products card part
 export const ProductCardComponent = (props : ProductCardComponentProps) => {
+    const navigate = useNavigate();
+    const handleSingleProductClick = () => {
+        // we need to navigate to the single product page details for this purpose
+        navigate(`/products/${props.id}`)
+    }
     return (
-        <div className="flex flex-col justify-center items-left w-[20%] ml-10 mb-10 rounded-lg p-5 shadow-2xl">
+        <div className="flex flex-col justify-center items-left w-[20%] ml-10 mb-10 rounded-lg p-5 shadow-2xl cursor-pointer" onClick={handleSingleProductClick}>
             {/* image of the product comes here */}
             <div className="flex justify-center items-center">
                 <img src={props.image} alt={props.title} className="h-20 w-20" />

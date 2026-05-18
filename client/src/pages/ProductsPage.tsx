@@ -145,7 +145,7 @@ export const ProductsPage = () => {
                 <div className="col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
                     { 
                         filteredList.slice(currPageNumber * 8 - 8, currPageNumber * 8).map((currProduct : ProductDetail, index : number) => (
-                            <ProductCardComponent key={index} image={currProduct.image} title={currProduct.title} price={currProduct.price}></ProductCardComponent>
+                            <ProductCardComponent key={index} image={currProduct.image} title={currProduct.title} price={currProduct.price} id={currProduct.id}></ProductCardComponent>
                         ))
                     }
 
