@@ -99,11 +99,18 @@ export const ProductsPage = () => {
         return categorySelection;
     }
     
-    const handlePageNumberClick = (pageNumber : number) => {
-        // just change the currpagenumber for this purpose
-        setCurrPageNumber(pageNumber)
-
+    const previousPageButtonClickHandler = () => {
+        setCurrPageNumber(currPageNumber - 1);
     }
+
+    const nextPageButtonClickHandler = () => {
+        setCurrPageNumber(currPageNumber + 1);
+    }
+
+
+
+
+
     // all the application hooks comes here 
     useEffect(() => {
         // this page has rendered freshly lets try to first set 
@@ -112,7 +119,9 @@ export const ProductsPage = () => {
         // and we have reserved the first element of the array as "ALL"
         let categorySelection = resetCategorySelection()
         setCurrCategoryCheckList(categorySelection)
-        setTotalPages(Math.floor(allProductList.length/8) + 1)
+        setFilteredList(allProductList);
+        setTotalPages(Math.floor(filteredList.length/8) + 1)
+        setCurrPageNumber(1);
     }, [])
 
     // now whenever the user selection on the price, category selection 
@@ -121,7 +130,8 @@ export const ProductsPage = () => {
     useEffect(() => {
         // call the filtered list function
         getFilteredProducts()
-        setTotalPages(Math.floor(allProductList.length/8) + 1)
+        setTotalPages(Math.floor(filteredList.length/8) + 1)
+        setCurrPageNumber(1);
     }, [currPriceRange, currCategoryCheckList, searchKeyWord])
 
     // all the UI related JSX codes comes here for this purpose
@@ -132,14 +142,14 @@ export const ProductsPage = () => {
                 <FilterComponent categoryList = {allCategoryList} currPriceRange={currPriceRange} searchKeyWord={searchKeyWord} categorySelectionCheckList = {currCategoryCheckList} handleCategorySelectionChange={handleCategoryChange} handlePriceChange={handlePriceChange} handleSearchKeyWordChange={handleSearchKeyWordChange} handleResetFilter={handleResetFilter}></FilterComponent>
                 {/* Product listing section comes here */}
                 <div className="col-span-3 flex flex-row flex-wrap justify-between items-center p-5">
-                    {
-                        filteredList.slice(0, 8).map((currProduct : ProductDetail, index : number) => (
+                    { 
+                        filteredList.slice(currPageNumber * 8 - 8, currPageNumber * 8).map((currProduct : ProductDetail, index : number) => (
                             <ProductCardComponent key={index} image={currProduct.image} title={currProduct.title} price={currProduct.price}></ProductCardComponent>
                         ))
                     }
 
                 </div>
-                <PaginationComponent currActivePageNumber={currPageNumber} totalNumberOfPages={totalPages} handlePageNumberClick={handlePageNumberClick}></PaginationComponent>
+                <PaginationComponent currActivePageNumber={currPageNumber} totalNumberOfPages={totalPages} previousPageButtonHandler={previousPageButtonClickHandler} nextPageButtonHandler={nextPageButtonClickHandler}></PaginationComponent>
 
             </div>
 

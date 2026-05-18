@@ -11,7 +11,13 @@ export const PaginationComponent = (props : PaginationComponentProps) => {
     return (
         <div className="border border-black w-full col-span-5 flex flex-row gap-5 justify-center items-center">
             {/* previous  button comes here */}
-            <button className="text-white bg-red-500 px-3 py-2 rounded-md ">Prev</button>
+            {
+                props.currActivePageNumber !== 1 ? 
+                <button className="text-white bg-red-500 px-3 py-2 rounded-md cursor-pointer " onClick={props.previousPageButtonHandler}>Prev</button>
+                : 
+                <button className="text-gray-500 bg-red-200 px-3 py-2 rounded-md cursor-pointer">Prev</button>
+                
+            }
 
             {/* the pagination numbering buttons comes here */}
             {/* <div className="shadow-xl ml-2 cursor-pointer">{props}</div>
@@ -21,7 +27,13 @@ export const PaginationComponent = (props : PaginationComponentProps) => {
             <div className="shadow-xl ml-2 cursor-pointer mr-2">19</div> */}
 
             {/* Here comes the next button */}
-            <button className="text-white bg-red-500 px-3 py-2 rounded-md ">Next</button>
+            {
+                props.currActivePageNumber === props.totalNumberOfPages ? 
+                <button className="text-gray-500 bg-red-200 px-3 py-2 rounded-md cursor-pointer" >Next</button>
+                : 
+                <button className="text-white bg-red-500 px-3 py-2 rounded-md cursor-pointer" onClick={props.nextPageButtonHandler}>Next</button>
+                
+            }
 
         </div>
     )

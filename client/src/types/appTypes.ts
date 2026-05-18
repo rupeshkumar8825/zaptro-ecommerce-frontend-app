@@ -56,6 +56,7 @@ export type FilterComponentProps = {
 export type PaginationComponentProps = {
     currActivePageNumber : number, 
     totalNumberOfPages : number, 
-    handlePageNumberClick : (pageNumber : number) => void, 
+    previousPageButtonHandler : () => void, 
+    nextPageButtonHandler : () => void
     // handleMiddlePageNumberClick : () => void
 }
