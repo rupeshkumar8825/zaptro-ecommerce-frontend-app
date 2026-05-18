@@ -51,3 +51,11 @@ export type FilterComponentProps = {
     handleSearchKeyWordChange : (e : React.ChangeEvent<HTMLInputElement>) => void;
     handleResetFilter : () => void;
 }
+
+
+export type PaginationComponentProps = {
+    currActivePageNumber : number, 
+    totalNumberOfPages : number, 
+    handlePageNumberClick : (pageNumber : number) => void, 
+    // handleMiddlePageNumberClick : () => void
+}

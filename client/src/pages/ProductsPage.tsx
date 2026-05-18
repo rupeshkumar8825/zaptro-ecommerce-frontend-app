@@ -21,7 +21,8 @@ export const ProductsPage = () => {
     const [currCategoryCheckList, setCurrCategoryCheckList] = useState<boolean[]>([]);
     const [currPriceRange, setCurrPriceRange] = useState<number>(5000);
     const [searchKeyWord, setSearchKeyWord] = useState<string>("");
-
+    const [currPageNumber, setCurrPageNumber] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
     
     // all the handlers like the button handlers, onchange handlers and so on comes here
     const handlePriceChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +99,11 @@ export const ProductsPage = () => {
         return categorySelection;
     }
     
-    
+    const handlePageNumberClick = (pageNumber : number) => {
+        // just change the currpagenumber for this purpose
+        setCurrPageNumber(pageNumber)
+
+    }
     // all the application hooks comes here 
     useEffect(() => {
         // this page has rendered freshly lets try to first set 
@@ -107,6 +112,7 @@ export const ProductsPage = () => {
         // and we have reserved the first element of the array as "ALL"
         let categorySelection = resetCategorySelection()
         setCurrCategoryCheckList(categorySelection)
+        setTotalPages(Math.floor(allProductList.length/8) + 1)
     }, [])
 
     // now whenever the user selection on the price, category selection 
@@ -115,6 +121,7 @@ export const ProductsPage = () => {
     useEffect(() => {
         // call the filtered list function
         getFilteredProducts()
+        setTotalPages(Math.floor(allProductList.length/8) + 1)
     }, [currPriceRange, currCategoryCheckList, searchKeyWord])
 
     // all the UI related JSX codes comes here for this purpose
@@ -132,7 +139,7 @@ export const ProductsPage = () => {
                     }
 
                 </div>
-                <PaginationComponent></PaginationComponent>
+                <PaginationComponent currActivePageNumber={currPageNumber} totalNumberOfPages={totalPages} handlePageNumberClick={handlePageNumberClick}></PaginationComponent>
 
             </div>
 
