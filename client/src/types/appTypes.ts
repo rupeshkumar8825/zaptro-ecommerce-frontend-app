@@ -61,3 +61,14 @@ export type PaginationComponentProps = {
     nextPageButtonHandler : () => void
     // handleMiddlePageNumberClick : () => void
 }
+
+
+/**
+ * lets extend the cartitem details type from already available type 
+ * ProductDetail. In order to extend we could have used the interfaces 
+ * too but since the ProductDetail was a type hence we have to use the 
+ * "&" to extend the fields from the ProductDetail. 
+ */
+export type CartItemDetails = ProductDetail & {
+    quantity : number
+}

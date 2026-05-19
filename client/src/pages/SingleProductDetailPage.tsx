@@ -18,7 +18,6 @@ export const SingleProductDetailPage = () => {
 
     // all the states related to the component comes here 
     const [currProductDetails, setCurrProductDetails] = useState<ProductDetail | null>(null);
-    const [notDiscountedPrice, setNotDiscountedPrice] = useState<number>(0);
 
     useEffect(() => {
         if(useParamObject){
